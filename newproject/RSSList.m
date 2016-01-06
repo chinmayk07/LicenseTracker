@@ -188,7 +188,7 @@
             NSRange firstRange = [contentLink rangeOfString:@"src=\""];
             NSRange secondRange = [[contentLink substringFromIndex:firstRange.location] rangeOfString:@"alt"];
             NSString *hashtagWord = [contentLink substringWithRange:NSMakeRange(firstRange.location, secondRange.location)];
-            //NSLog(@"hashtagWord: %@", hashtagWord);
+            NSLog(@"hashtagWord: %@", hashtagWord);
             
             NSString *match = @"src=\"";
             NSString *postMatch;
