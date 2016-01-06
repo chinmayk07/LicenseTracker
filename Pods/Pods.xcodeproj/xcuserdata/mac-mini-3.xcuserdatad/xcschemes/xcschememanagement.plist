@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>BEMSimpleLineGraph.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TOWebViewController-TOWebViewControllerLocalizable.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TOWebViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>5E99CB7EE805EAAA47580547D7CD434B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>78DD729E6F6BE3C1326232CD5DFFFBB7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF05FEC668585FD29DEE65F2A7D20B69</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D1A85A3FA18993894258EC18A1DE9B05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D6F1A7FFAAEAC53386765146027405E6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

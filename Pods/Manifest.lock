@@ -1,0 +1,20 @@
+PODS:
+  - BEMSimpleLineGraph (4.1)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
+  - TOWebViewController (2.2.1):
+    - TOWebViewController/Core (= 2.2.1)
+  - TOWebViewController/Core (2.2.1)
+
+DEPENDENCIES:
+  - BEMSimpleLineGraph
+  - SDWebImage (~> 3.7)
+  - TOWebViewController
+
+SPEC CHECKSUMS:
+  BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  TOWebViewController: f3b3717d6c07b3d9a0c0f9aac271baa59734e9c0
+
+COCOAPODS: 0.39.0
