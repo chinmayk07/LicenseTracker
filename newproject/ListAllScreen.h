@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Database.h"
+#import "EditView.h"
 
 @interface ListAllScreen : UITableViewController
 

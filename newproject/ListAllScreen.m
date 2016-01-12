@@ -19,6 +19,7 @@
 @implementation ListAllScreen
 {
     NSMutableArray *arrayList, *arrayListDate;
+    NSString *editName, *editDate;
     int value;
 }
 
@@ -143,6 +144,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(self.tblListDetails.editing) {
         
+        EditView *ev = [self.storyboard instantiateViewControllerWithIdentifier:@"editView"];
+        
+        NSLog(@"INDEXPATH OF SELECTED ROW : %ld",(long)indexPath.row);
+        editName = [arrayList objectAtIndex:indexPath.row];
+        editDate = [arrayListDate objectAtIndex:indexPath.row];
+        NSLog(@"EDIT NAME : %@",editName);
+        NSLog(@"EDIT DATE : %@",editDate);
+        
+        ev.selectedName = editName;
+        ev.selectedDate = editDate;
+        
+        [self presentViewController:ev animated:YES completion:nil];        
     }
 }
 
@@ -252,7 +265,7 @@
     UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         
         NSLog(@"OKAY ACTION");
-        [self deletedata:value];              
+        [self deletedata:value];
         
     }];
     UIAlertAction *cancleaction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {

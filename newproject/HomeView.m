@@ -19,6 +19,7 @@
 @implementation HomeView
 {
     NSMutableArray *upcomingArrayName, *upcomingArrayDate;
+    NSString *editNameHome, *editDateHome;
     int value;
 }
 
@@ -186,10 +187,6 @@
     }
 }
 
-
-
-
-
 - (IBAction)btnEdit:(id)sender {
     
     NSString *title = self.editBtn.title;
@@ -202,6 +199,25 @@
     else {
         [self.tblUpcomingList setEditing:NO animated:YES];
         self.editBtn.title = @"Edit";
+        
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(self.tblUpcomingList.editing) {
+        
+        EditView *ev = [self.storyboard instantiateViewControllerWithIdentifier:@"editView"];
+        
+        NSLog(@"INDEXPATH OF SELECTED ROW : %ld",(long)indexPath.row);
+        editNameHome = [upcomingArrayName objectAtIndex:indexPath.row];
+        editDateHome = [upcomingArrayDate objectAtIndex:indexPath.row];
+        NSLog(@"EDIT NAME : %@",editNameHome);
+        NSLog(@"EDIT DATE : %@",editDateHome);
+        
+        ev.selectedName = editNameHome;
+        ev.selectedDate = editDateHome;
+        
+        [self presentViewController:ev animated:YES completion:nil];
         
     }
 }

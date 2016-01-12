@@ -37,6 +37,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="WUs-PS-jIR" kind="show" id="j8k-XC-dto"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -426,7 +429,7 @@
         <!--Home Search-->
         <scene sceneID="G7U-Xf-Wx6">
             <objects>
-                <tableViewController id="TjE-Gb-urB" customClass="HomeSearch" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HomeScreenView" id="TjE-Gb-urB" customClass="HomeSearch" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gsY-Iw-kvV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -496,6 +499,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NzW-kg-R35" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1952" y="441"/>
+        </scene>
+        <!--Edit View-->
+        <scene sceneID="e4k-Bb-1fZ">
+            <objects>
+                <viewController storyboardIdentifier="editView" id="WUs-PS-jIR" customClass="EditView" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XM8-Cd-HTY"/>
+                        <viewControllerLayoutGuide type="bottom" id="FPc-aD-l1j"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="I0r-Ad-Ev6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="License Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKp-yb-acu">
+                                <rect key="frame" x="46" y="86" width="229" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Expiry Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0r1-lR-mal">
+                                <rect key="frame" x="40" y="175" width="242" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jea-C7-R3g">
+                                <rect key="frame" x="40" y="211" width="242" height="28"/>
+                                <color key="backgroundColor" red="0.97664141414141414" green="0.97664141414141414" blue="0.97664141414141414" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rc2-gi-Y6p">
+                                <rect key="frame" x="40" y="396" width="52" height="30"/>
+                                <state key="normal" title="Update"/>
+                                <connections>
+                                    <action selector="btnUpdate:" destination="WUs-PS-jIR" eventType="touchUpInside" id="gt2-w3-XSt"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IkE-4D-S3M">
+                                <rect key="frame" x="48" y="121" width="226" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="xzB-We-Jk3">
+                                <rect key="frame" x="40" y="261" width="242" height="122"/>
+                                <date key="date" timeIntervalSinceReferenceDate="474320365.287507">
+                                    <!--2016-01-12 19:39:25 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="editDateChanged:" destination="WUs-PS-jIR" eventType="valueChanged" id="ztU-Wq-5ok"/>
+                                </connections>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-6B-9sr">
+                                <rect key="frame" x="231" y="396" width="51" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="btnCancel:" destination="WUs-PS-jIR" eventType="touchUpInside" id="SUK-QU-jEa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="editDate" destination="Jea-C7-R3g" id="tK7-iA-iK9"/>
+                        <outlet property="editDatePicker" destination="xzB-We-Jk3" id="Ftl-7E-6KY"/>
+                        <outlet property="editName" destination="IkE-4D-S3M" id="czU-cj-Qwx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c6B-cM-FX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2392" y="441"/>
         </scene>
         <!--HOME-->
         <scene sceneID="3lc-Gq-xWS">
@@ -1265,6 +1341,6 @@
         <image name="submit" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YOX-iU-R7t"/>
+        <segue reference="dlS-6I-lRT"/>
     </inferredMetricsTieBreakers>
 </document>

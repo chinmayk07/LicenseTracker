@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Database.h"
-#import "AddDetails.h"
 #import "EditView.h"
 
 @interface HomeView : UITableViewController
