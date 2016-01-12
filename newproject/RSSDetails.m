@@ -14,6 +14,8 @@
     NSArray *linkdetails;
     NSArray *REQUIREDDATA;
     NSString *asdfgh;
+    NSURL *myURL;
+    NSURLRequest *request;
 }
 
 @end
@@ -23,8 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];// Do any additional setup after loading the view.
     
-    NSURL *myURL = [NSURL URLWithString:[self.url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:myURL];
+    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+    
+    myURL = [NSURL URLWithString:[self.url stringByAddingPercentEncodingWithAllowedCharacters:set]];
+    request = [NSURLRequest requestWithURL:myURL];
     [self.webView loadRequest:request];
     
     rowvalue = self.selectedLink;
@@ -42,6 +46,15 @@
     [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.webView addGestureRecognizer:swipeLeft];
     [self.webView addGestureRecognizer:swipeRight];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_webView stopLoading];
+    [_webView loadHTMLString:@"" baseURL:nil];
+    [_webView stopLoading];
+    [_webView removeFromSuperview];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,6 +137,7 @@
          self.articleNo.text = [NSString stringWithFormat:@"Article %ld ",(long)rowvalue2];*/
         
         [self next];
+    
     }
     
     if(swipe.direction == UISwipeGestureRecognizerDirectionRight) {
@@ -164,6 +178,8 @@
     }
     else
     {
+        [self deallocate];
+        
         REQUIREDDATA = [linkdetails objectAtIndex:rowvalue];
         
         NSLog(@"%lu",(unsigned long)[linkdetails count]);
@@ -171,8 +187,10 @@
         asdfgh = [REQUIREDDATA valueForKey:@"link"];
         NSLog(@"REQUIRED  : %@",asdfgh);
         
-        NSURL *myURL = [NSURL URLWithString:[asdfgh stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:myURL];
+        NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+        
+        myURL = [NSURL URLWithString:[asdfgh stringByAddingPercentEncodingWithAllowedCharacters:set]];
+        request = [NSURLRequest requestWithURL:myURL];
         [self.webView loadRequest:request];
         
         
@@ -194,12 +212,15 @@
     }
     else
     {
+        [self deallocate];
+        
         REQUIREDDATA = [linkdetails objectAtIndex:rowvalue];
         
         asdfgh = [REQUIREDDATA valueForKey:@"link"];
         
-        NSURL *myURL = [NSURL URLWithString:[asdfgh stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:myURL];
+        NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+        myURL = [NSURL URLWithString:[asdfgh stringByAddingPercentEncodingWithAllowedCharacters:set]];
+        request = [NSURLRequest requestWithURL:myURL];
         [self.webView loadRequest:request];
         
         NSLog(@"REQUIRED DATA : %@",REQUIREDDATA);
@@ -218,6 +239,20 @@
     [alert addAction:defaultaction];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)deallocate {
+    
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    [[NSURLCache sharedURLCache] setDiskCapacity:0];
+    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
+    
+    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:request];
+    
+    [self.webView loadHTMLString:@"" baseURL:nil];
+    [self.webView stopLoading];
+    self.webView.delegate = nil;
+    NSLog(@"RSS Details deallocation");
 }
 
 

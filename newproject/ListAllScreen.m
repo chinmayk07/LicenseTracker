@@ -18,7 +18,7 @@
 
 @implementation ListAllScreen
 {
-    NSMutableArray *arrayList;
+    NSMutableArray *arrayList, *arrayListDate;
     int value;
 }
 
@@ -85,6 +85,7 @@
     }
     else {
         arrayList = [[NSMutableArray alloc]initWithArray:dictValues];
+        arrayListDate = [[NSMutableArray alloc]initWithArray:dictKeys];
     }
 }
 
@@ -104,13 +105,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-    
-    //Database *aPerson = [arrayList objectAtIndex:indexPath.row];
-    
-    //cell.textLabel.text = aPerson.name;
-    
+        
     cell.textLabel.text = [arrayList objectAtIndex:indexPath.row];
-    //cell.detailTextLabel.text = aPerson.expiryDate;
+    cell.detailTextLabel.text = [arrayListDate objectAtIndex:indexPath.row];
     
     // Configure the cell...
     
@@ -232,18 +229,30 @@
     }    
 }
 
+- (void)deletedata:(int)rownumber {
+    
+    NSLog(@"DELETE FUnCTION %d",rownumber);
+    
+    NSString *a = [arrayList objectAtIndex:rownumber];
+    
+    NSLog(@"NAME TO BE DELETED IS : %@",a);
+    
+    [self.database deleteData:a];
+    [arrayList removeObjectAtIndex:rownumber];
+    [self.tblListDetails reloadData];
+    NSLog(@"OK Action %d",rownumber);
+    
+    
+}
+
 -(void) displayAlert: (NSString *) msg
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"ALERT" message:msg preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         
-        Database *a = [arrayList objectAtIndex:value];
-        [self.database deleteData:a.name];
-        [arrayList removeObjectAtIndex:value];
-        [self.tblListDetails reloadData];
-        NSLog(@"OK Action %d",value);
-        
+        NSLog(@"OKAY ACTION");
+        [self deletedata:value];              
         
     }];
     UIAlertAction *cancleaction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {

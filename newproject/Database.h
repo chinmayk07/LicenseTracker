@@ -27,7 +27,7 @@
 
 - (int)insertLogData:(NSDate *)logDate;
 - (int)insertData:(NSString *)licenseName expiryDate:(NSString *)expiryDate;
-- (NSMutableArray *) listUpcomingDetails:(NSString *)toDate fromDate:(NSString *) fromDate;
+- (NSDictionary *) listUpcomingDetails:(NSString *)toDate fromDate:(NSString *) fromDate;
 //- (NSMutableArray *) listDetails;
 - (NSDictionary *) listDetails;
 - (NSMutableArray *) listLogDetails;

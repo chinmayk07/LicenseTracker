@@ -12,7 +12,7 @@
 @interface Submit : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate>
 {
     UIImagePickerController *imagePickerController;
-    UIPopoverController *popover;
+    //UIPopoverController *popover;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *txtTitle;

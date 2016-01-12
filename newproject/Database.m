@@ -147,11 +147,12 @@ NSString *dbPathString ,*dbPathString1, *lastlogdate;
     return test1;
 }
 
-- (NSMutableArray *) listUpcomingDetails:(NSString *)toDate fromDate:(NSString *) fromDate
+- (NSDictionary *) listUpcomingDetails:(NSString *)toDate fromDate:(NSString *)fromDate
 {
-    NSMutableDictionary *test = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *test1 = [[NSMutableDictionary alloc]init];
     arrayOfUpcomingList = [[NSMutableArray alloc]init ];
     sqlite3_stmt *statement=NULL;
+    
     
     if(sqlite3_open([dbPathString UTF8String], &personDB)== SQLITE_OK) {
         NSString *querySql = [NSString stringWithFormat:@"SELECT * FROM PERSONS where DATE BETWEEN '%@' AND '%@'",toDate,fromDate ];
@@ -162,25 +163,24 @@ NSString *dbPathString ,*dbPathString1, *lastlogdate;
                 NSString *name = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
                 NSString *expiryDate = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
                 
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:name,expiryDate , nil];
-                [test addEntriesFromDictionary:dict];
                 
+                NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:name,expiryDate , nil];
+                [test1 addEntriesFromDictionary:dict1];
                 
                 Database *person = [[Database alloc]init];
                 
                 [person setName:name];
                 [person setExpiryDate:expiryDate];
                 
-                //NSArray *upcoming = [[NSArray alloc]initWithObjects:name, nil];
-                //[arrayOfUpcomingList addObjectsFromArray:upcoming];
+                [arrayOfPerson addObject:person];
                 
-                [arrayOfUpcomingList addObject:person];
+                //NSLog(@"%@ %@",expiryDate ,name);
             }
         }
     }
-    NSLog(@"FROM DICTIONARY : %@",test);
+    NSLog(@"FROM DICTIONARY : %@",test1);
     NSLog(@"finalDictonaryUPCOMINGDETAILS = %@",arrayOfUpcomingList);
-    return arrayOfUpcomingList;
+    return test1;
 }
 
 

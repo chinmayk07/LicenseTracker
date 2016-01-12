@@ -54,9 +54,7 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"No Camera Available." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
-        alert = nil;
+        [self displayAlert:@"Camera not Available"];
     }
 }
 
@@ -69,7 +67,7 @@
     BOOL myStringMatchesRegEx=[emailTest evaluateWithObject:emailid];
     
     
-    if(([self.txtTitle.text isEqualToString:@""] || [self.txtName.text isEqualToString:@""] || [self.txtStory.text isEqualToString:@""] || [self.txtEmail.text isEqualToString:@""] ) ){
+    if([self.txtTitle.text isEqualToString:@""] || [self.txtName.text isEqualToString:@""] || [self.txtStory.text isEqualToString:@""] || [self.txtEmail.text isEqualToString:@""]){
         
         [self displayAlert:@"Enter Valid Data in all Fields"];
         
@@ -111,6 +109,7 @@
 
 }
 
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -122,13 +121,13 @@
     _imageSelector.image = newImage;
     
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"savedImage.png"];
+   // NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
+    //NSString *documentsDirectory = [paths objectAtIndex:0];
+    //NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"savedImage.png"];
     //UIImage *image = _imageSelector.image; // imageView is my image from camera
     //NSData *imageData = UIImagePNGRepresentation(image);
     //[imageData writeToFile:savedImagePath atomically:NO];
-    NSLog(@"%@",savedImagePath);
+    //NSLog(@"%@",savedImagePath);
     
     
 }

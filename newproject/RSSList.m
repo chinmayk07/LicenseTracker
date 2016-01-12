@@ -26,9 +26,6 @@
 @end
 
 @implementation RSSList
-{
-    NSCache *imageCache;
-}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -126,8 +123,8 @@
     
     //fetching image from URL
     NSURL *img = [NSURL URLWithString:[[feeds objectAtIndex:indexPath.row]objectForKey:@"imagelink"]];
-    NSData *data = [NSData dataWithContentsOfURL:img];
-    UIImage *image = [UIImage imageWithData:data];
+    //rNSData *data = [NSData dataWithContentsOfURL:img];
+    //UIImage *image = [UIImage imageWithData:data];
     
     
     //SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -141,8 +138,8 @@
     
     
     if(![[img absoluteString] isEqualToString:@""]) {
-        cell.cellImageView.image = image;
-        //[cell.cellImageView sd_setImageWithURL:img placeholderImage:[UIImage imageNamed:@"NoImage"] options:SDWebImageRefreshCached];
+        //cell.cellImageView.image = image;
+        [cell.cellImageView sd_setImageWithURL:img placeholderImage:[UIImage imageNamed:@"NoImage"] options:SDWebImageRefreshCached];
     }
     else
     {
@@ -176,9 +173,11 @@
     else if ([element isEqualToString:@"link"]) {
         [link appendString:string];
         
+        NSLog(@"RESULTS without filter : %@",link);
+        
         NSCharacterSet *notAllowedChars = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:/-"] invertedSet];
         resultString = [[link componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@""];
-        //NSLog (@"Result: %@", resultString);
+        NSLog (@"Result: %@", resultString);
     }
     else if ([element isEqualToString:@"content:encoded"]) {
         [contentLink appendString:string];
@@ -245,7 +244,7 @@
         [item setObject:ActualUrl forKey:@"imagelink"];
         [item setObject:description forKey:@"description"];
         
-        //NSLog(@"RSS FEED :%@",item);
+        NSLog(@"RSS FEED :%@",item);
         [feeds addObject:[item copy]];
     }
 }

@@ -1,9 +1,9 @@
 //
-//  HomeScreen.h
+//  HomeView.h
 //  newproject
 //
-//  Created by Mac-Mini-3 on 28/12/15.
-//  Copyright © 2015 Mac-Mini-3. All rights reserved.
+//  Created by Mac-Mini-3 on 12/01/16.
+//  Copyright © 2016 Mac-Mini-3. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +11,7 @@
 #import "AddDetails.h"
 #import "EditView.h"
 
-@interface HomeScreen : UITableViewController
+@interface HomeView : UITableViewController
 
 @property (nonatomic,strong) Database *database;
 
