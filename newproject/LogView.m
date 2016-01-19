@@ -28,6 +28,23 @@ NSString *presentdate;
 - (void)getLogData {
     
     noOfLogEntries = [self.database listLogDetails];
+    int lastRowNumber = [self.tblLogView numberOfRowsInSection:0]-1;
+    
+    if(lastRowNumber <= 0) {
+        
+        NSLog(@"No logs");
+        
+    }
+    else {
+        
+        NSIndexPath* ip = [NSIndexPath indexPathForRow:lastRowNumber inSection:0];
+        NSLog(@"%d",lastRowNumber);
+        NSLog(@"%@",ip);
+        [self.tblLogView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [self.tblLogView reloadData];
+        
+    }
+    
 }
 
 - (void)viewDidLoad {
@@ -36,20 +53,30 @@ NSString *presentdate;
     self.tblLogView.delegate = self;
     // Do any additional setup after loading the view.
     //[self.database createOrOpenDBLog];
-    [self getLogData];
     [self GetCurrentTime];
-    [self.tblLogView reloadData];
-    NSLog(@"LOG DATA : %@",noOfLogEntries);
+    //NSLog(@"LOG DATA : %@",noOfLogEntries);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.tblLogView.dataSource = self;
-    self.tblLogView.delegate =self;
-    [self getLogData];
+    //self.tblLogView.dataSource = self;
+    //self.tblLogView.delegate =self;
     
+    if([noOfLogEntries count]== 0) {
+        
+        //NSLog(@"COUNT OF LOGS : %lu",(unsigned long)[noOfLogEntries count]);
+        [self displayAlert:@"There is no Log Data"];
+        
+    }
+    else {
+        
+        [self getLogData];
+        
+    }
     [self GetCurrentTime];
-    [self.tblLogView reloadData];
+    //[self.tblLogView reloadData];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -82,7 +109,7 @@ NSString *presentdate;
     
     cell.textLabel.text = [noOfLogEntries objectAtIndex:indexPath.row];
     
-    NSLog(@"LOG DATA : %@",noOfLogEntries);
+    //NSLog(@"LOG DATA : %@",noOfLogEntries);
     
     return cell;
 }
@@ -113,10 +140,11 @@ NSString *presentdate;
     //int results = [self.database insertLogData:self.lblcurrentDate.text];
     if(results == 1) {
         [self displayAlert:@"Date and time Logged"];
-        [self.tblLogView reloadData];
+        [self getLogData];
     }
-    [self.tblLogView reloadData];
+    
 }
+
 
 -(void) displayAlert: (NSString *) msg
 {
@@ -124,6 +152,7 @@ NSString *presentdate;
     UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         
         [self.tblLogView reloadData];
+        [self getLogData];
     
     }];
     

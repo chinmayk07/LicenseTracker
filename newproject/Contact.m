@@ -36,22 +36,31 @@
 
 - (IBAction)btnMail:(id)sender {
     
-    //Email subject
-    NSString *emailTitle = @"Test App";
-    
-    //Email content
-    NSString *messageBody = @"Test app programming Result";
-    
-    //to address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"merlynferns@gmail.com"];
-    
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc]init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipents];
-    
-    [self presentViewController:mc animated:YES completion:NULL];
+    if ([MFMailComposeViewController canSendMail]) {
+        
+        //Email subject
+        NSString *emailTitle = @"Test App";
+        
+        //Email content
+        NSString *messageBody = @"Test app programming Result";
+        
+        //to address
+        NSArray *toRecipents = [NSArray arrayWithObject:@"merlynferns@gmail.com"];
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc]init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:toRecipents];
+        
+        [self presentViewController:mc animated:YES completion:NULL];
+        
+    }
+    else {
+        
+        [self displayAlert:@"User Account not logged in"];
+        
+    }
 }
 
 - (IBAction)btnCall1:(id)sender {

@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *upDownPercent;
 @property (weak, nonatomic) IBOutlet UILabel *timeSincePayment;
+@property (weak, nonatomic) IBOutlet UILabel *daysmonthyearlbl;
 
 - (IBAction)btn7Days:(id)sender;
 - (IBAction)btn1Month:(id)sender;

@@ -285,7 +285,7 @@ NSString *dbPathString ,*dbPathString1, *lastlogdate;
             }
         }
     }
-    NSLog(@"%ld",(long)currentWeekCount);
+    NSLog(@"CURRENT WEEK COUNT : %ld",(long)currentWeekCount);
     return currentWeekCount;
 }
 
@@ -307,7 +307,7 @@ NSString *dbPathString ,*dbPathString1, *lastlogdate;
             }
         }
     }
-    NSLog(@"%ld",(long)lastWeekCount);
+    NSLog(@"PREVIOUS WEEK COUNT : %ld",(long)lastWeekCount);
     return lastWeekCount;
 }
 

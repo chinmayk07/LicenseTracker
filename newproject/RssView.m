@@ -30,33 +30,39 @@
 
 //RssDetails
 
-- (IBAction)btnNews:(id)sender {
+- (IBAction)click:(id)sender {
     
     segueIdentifier = [NSString stringWithFormat:@"RssLists"];
-    link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/app-feed/feed/rss2"];
-    //[self performSegueWithIdentifier:segueIdentifier sender:self];
+    
+    switch ([sender tag]) {
+        case 1:
+            NSLog(@"Button 1 pressed");
+            link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/app-feed/feed/rss2"];
+            break;
+            
+        case 2:
+            NSLog(@"Button 2 pressed");
+            link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/sports/feed/rss2"];
+            [self performSegueWithIdentifier:segueIdentifier sender:self];
+            break;
+            
+        case 3:
+            NSLog(@"Button 3 pressed");
+            link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/obits/feed/rss2"];
+            [self performSegueWithIdentifier:segueIdentifier sender:self];
+            break;
+            
+        case 4:
+            NSLog(@"Button 4 pressed");
+            link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/birthdays-anniversaries/feed/rss2"];
+            [self performSegueWithIdentifier:segueIdentifier sender:self];
+            break;
+            
+        default:
+            break;
+    }
 }
 
-- (IBAction)btnSports:(id)sender {
-    
-    segueIdentifier = [NSString stringWithFormat:@"RssLists"];
-    link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/sports/feed/rss2"];
-    [self performSegueWithIdentifier:segueIdentifier sender:self];
-}
-
-- (IBAction)btnOrbits:(id)sender {
-    
-    segueIdentifier = [NSString stringWithFormat:@"RssLists"];
-    link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/obits/feed/rss2"];
-    [self performSegueWithIdentifier:segueIdentifier sender:self];
-}
-
-- (IBAction)btnBirthday:(id)sender {
-    
-    segueIdentifier = [NSString stringWithFormat:@"RssLists"];
-    link = [NSString stringWithFormat:@"http://www.ozarkareanetwork.com/category/birthdays-anniversaries/feed/rss2"];
-    [self performSegueWithIdentifier:segueIdentifier sender:self];
-}
 
 #pragma mark - Navigation
 

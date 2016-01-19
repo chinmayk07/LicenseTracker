@@ -10,9 +10,4 @@
 
 @interface RssView : UIViewController
 
-- (IBAction)btnNews:(id)sender;
-- (IBAction)btnSports:(id)sender;
-- (IBAction)btnOrbits:(id)sender;
-- (IBAction)btnBirthday:(id)sender;
-
 @end

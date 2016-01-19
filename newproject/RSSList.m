@@ -17,9 +17,10 @@
     NSMutableArray *feeds;
     NSMutableDictionary *item;
     NSMutableString *title;
-    NSMutableString *link;
+    NSMutableString *link, *pubDate;
     NSMutableString *imagelink, *description, *contentLink;
     NSString *element, *resultString, *resultString1, *ActualUrl, *url1, *preMatch,*desc;
+    NSMutableDictionary *feeds1;
 }
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
@@ -157,6 +158,7 @@
         item = [[NSMutableDictionary alloc] init];
         title = [[NSMutableString alloc] init];
         link = [[NSMutableString alloc] init];
+        pubDate = [[NSMutableString alloc] init];
         imagelink = [[NSMutableString alloc] init];
         contentLink = [[NSMutableString alloc] init];
         description = [[NSMutableString alloc] init];
@@ -169,6 +171,9 @@
     
     if([element isEqualToString:@"title"]) {
         [title appendString:string];
+    }
+    else if([element isEqualToString:@"pubDate"]) {
+        [pubDate appendString:string];
     }
     else if ([element isEqualToString:@"link"]) {
         [link appendString:string];
@@ -196,13 +201,7 @@
             [scanner scanString:match intoString:nil];
             postMatch = [hashtagWord substringFromIndex:scanner.scanLocation];
            // NSLog(@"POSTMATCHHHHHHHH %@",postMatch);
-            
-            
-            /*NSCharacterSet *notAllowedChars = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.:/-"] invertedSet];
-             resultString1 = [[postMatch componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@""];
-             NSLog (@"Result 1: %@", resultString1);*/
-            
-            
+                       
             ActualUrl = [postMatch stringByAppendingString:@".jpg"];
             //ActualUrl = hashtagWord;
             //NSLog(@"HSFJKAHASHDKHASKHDKJASH %@",ActualUrl);
@@ -220,6 +219,7 @@
             
          
         }
+        NSLog(@"CONTENT ENCODE : %@",contentLink);
     }
     else if ([element isEqualToString:@"description"]) {
         [description appendString:string];
@@ -242,7 +242,8 @@
         
         //[item setObject:contentLink forKey:@"content:encoded"];
         [item setObject:ActualUrl forKey:@"imagelink"];
-        [item setObject:description forKey:@"description"];
+        [item setObject:contentLink forKey:@"description"];
+        [item setObject:pubDate forKey:@"Publish Date"];
         
         NSLog(@"RSS FEED :%@",item);
         [feeds addObject:[item copy]];

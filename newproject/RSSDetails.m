@@ -7,6 +7,7 @@
 //
 
 #import "RSSDetails.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface RSSDetails ()
 {
@@ -16,6 +17,7 @@
     NSString *asdfgh;
     NSURL *myURL;
     NSURLRequest *request;
+    NSDictionary *rsslist;
 }
 
 @end
@@ -25,17 +27,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];// Do any additional setup after loading the view.
     
-    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+    //NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
     
-    myURL = [NSURL URLWithString:[self.url stringByAddingPercentEncodingWithAllowedCharacters:set]];
-    request = [NSURLRequest requestWithURL:myURL];
-    [self.webView loadRequest:request];
+    //myURL = [NSURL URLWithString:[self.url stringByAddingPercentEncodingWithAllowedCharacters:set]];
+    //request = [NSURLRequest requestWithURL:myURL];
+    //[self.webView loadRequest:request];
     
     rowvalue = self.selectedLink;
     linkdetails = self.DetailModal;
     
+    [self assignData:rowvalue];
+        
     rowvalue1 = rowvalue +1;
     NSLog(@"ROWVALUE : %ld",(long)rowvalue);
+    
+    NSLog(@"SELECTED ROW DETAILS %@",[linkdetails objectAtIndex:rowvalue]);
     
     //NSLog(@"ARRAY %lu",(unsigned long)linkdetails.count);
     self.articleNo.text = [NSString stringWithFormat:@"Article %ld / %lu ",(long)rowvalue1,(unsigned long)[linkdetails count]];
@@ -44,18 +50,18 @@
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
     [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.webView addGestureRecognizer:swipeLeft];
-    [self.webView addGestureRecognizer:swipeRight];
+   // [self.webView addGestureRecognizer:swipeLeft];
+    //[self.webView addGestureRecognizer:swipeRight];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+/*- (void)viewDidDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_webView stopLoading];
     [_webView loadHTMLString:@"" baseURL:nil];
     [_webView stopLoading];
     [_webView removeFromSuperview];
     
-}
+}*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -178,24 +184,43 @@
     }
     else
     {
-        [self deallocate];
         
-        REQUIREDDATA = [linkdetails objectAtIndex:rowvalue];
         
-        NSLog(@"%lu",(unsigned long)[linkdetails count]);
-        
-        asdfgh = [REQUIREDDATA valueForKey:@"link"];
-        NSLog(@"REQUIRED  : %@",asdfgh);
-        
-        NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
-        
-        myURL = [NSURL URLWithString:[asdfgh stringByAddingPercentEncodingWithAllowedCharacters:set]];
-        request = [NSURLRequest requestWithURL:myURL];
-        [self.webView loadRequest:request];
-        
+        [self assignData:rowvalue];
         
         NSLog(@"REQUIRED DATA : %@",REQUIREDDATA);
         self.articleNo.text = [NSString stringWithFormat:@"Article %ld / %lu ",(long)rowvalue2, (unsigned long)[linkdetails count]];
+    }
+}
+
+- (void)assignData:(NSInteger)row {
+    
+    linkdetails = self.DetailModal;
+    
+    NSString *string = [linkdetails[row] objectForKey:@"description"];
+    NSString *string1 = [linkdetails[row] objectForKey:@"Publish Date"];
+    NSString *string2 = [linkdetails[row] objectForKey:@"title"];
+    NSString *string3 = [linkdetails[row] objectForKey:@"imagelink"];
+    
+    NSLog(@"DESCRIPTION : %@",string);
+    NSLog(@"Publish Date: %@",string1);
+    NSLog(@"Title : %@",string2);
+    NSLog(@"ImageLink : %@",string3);
+
+    
+    self.articleTitle.text = string2;
+    self.articleDescription.text = string;
+    self.articleDate.text = string1;
+    
+    NSURL *img = [NSURL URLWithString:string3];
+   
+    if([string3 isEqualToString:@""]) {
+        
+        self.articleImage.image = [UIImage imageNamed:@"NoImage"];
+        
+    }
+    else {
+        [self.articleImage sd_setImageWithURL:img placeholderImage:[UIImage imageNamed:@"NoImage"] options:SDWebImageRefreshCached];
     }
 }
 
@@ -212,16 +237,7 @@
     }
     else
     {
-        [self deallocate];
-        
-        REQUIREDDATA = [linkdetails objectAtIndex:rowvalue];
-        
-        asdfgh = [REQUIREDDATA valueForKey:@"link"];
-        
-        NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
-        myURL = [NSURL URLWithString:[asdfgh stringByAddingPercentEncodingWithAllowedCharacters:set]];
-        request = [NSURLRequest requestWithURL:myURL];
-        [self.webView loadRequest:request];
+        [self assignData:rowvalue];
         
         NSLog(@"REQUIRED DATA : %@",REQUIREDDATA);
         
@@ -249,10 +265,10 @@
     
     [[NSURLCache sharedURLCache] removeCachedResponseForRequest:request];
     
-    [self.webView loadHTMLString:@"" baseURL:nil];
-    [self.webView stopLoading];
-    self.webView.delegate = nil;
-    NSLog(@"RSS Details deallocation");
+    //[self.webView loadHTMLString:@"" baseURL:nil];
+    //[self.webView stopLoading];
+    //self.webView.delegate = nil;
+    //NSLog(@"RSS Details deallocation");
 }
 
 

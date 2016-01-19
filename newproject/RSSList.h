@@ -11,6 +11,6 @@
 
 @interface RSSList : UITableViewController <NSXMLParserDelegate>
 
-
 @property (nonatomic,strong) NSString *urllink;
+
 @end

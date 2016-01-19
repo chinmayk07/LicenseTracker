@@ -49,6 +49,10 @@
     self.paymentGraph.enableTouchReport = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self getWeekUpDownPercentage];
+}
+
 - (void)getLogData {
     
     lastlogentrydata = [self.database lastLogEntry];
@@ -116,12 +120,18 @@
     NSDate *lastDayOfPreviousWeek = [celender dateFromComponents:curntDateComponents];
     
     NSDateFormatter *format = [[NSDateFormatter alloc]init];
-    [format setDateFormat:@"yyyy-MM-dd"];
+    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     firstDate = [format stringFromDate:firstDayOfTheWeek];
     lastDate = [format stringFromDate:lastDayOfTheWeek];
     NSString *previousDatefirst = [format stringFromDate:firstDayOfPreviousWeek];
     NSString *previousDateLast = [format stringFromDate:lastDayOfPreviousWeek];
+    
+    
+    NSLog(@"Previous date first : %@",previousDatefirst);
+    NSLog(@"Previous date last : %@",previousDateLast);
+    NSLog(@"CUrrent date first : %@",firstDate);
+    NSLog(@"CUrrent date last : %@",lastDate);
         
     NSInteger value = [self.database percentageCalculatn:previousDatefirst lastDayOfPreviousWeek:previousDateLast firstDayOfWeek:firstDate lastDayOfWeek:lastDate];
     
@@ -256,15 +266,19 @@
 
 - (IBAction)btn7Days:(id)sender {
     [self displayWeekChart];
+    self.daysmonthyearlbl.text = @"Last 7 Days";
 }
 
 - (IBAction)btn1Month:(id)sender {
     [self displayMonthlyChart];
+    self.daysmonthyearlbl.text = @"Last 1 Month";
 }
 
 - (IBAction)btn1Year:(id)sender {
     [self displayYearlyChart];
+    self.daysmonthyearlbl.text = @"Last 1 Year";
 }
+
 
 -(void) displayAlert: (NSString *) msg
 {

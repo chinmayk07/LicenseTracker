@@ -34,6 +34,13 @@
 }
 */
 
+- (BOOL)textFieldShouldReturn:(UITextField *)txtEmail {
+    
+    [txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
+    [txtEmail reloadInputViews];
+    return YES;
+}
+
 - (IBAction)btnAddFromGallery:(id)sender {
     
     imagePickerController = [[UIImagePickerController alloc]init];
@@ -77,34 +84,44 @@
     }
     else {
         
-        //Email subject
-        NSString *emailTitle = self.txtTitle.text;
-        
-        //Email content
-        NSString *messageBody = self.txtStory.text;
-        
-        //to address
-        NSArray *toRecipents = [NSArray arrayWithObject:self.txtEmail.text];
-        
-        
-        // Attach an image to the email
-        //NSString *path = [[NSBundle mainBundle] pathForResource:@"project existing photo" ofType:@"jpg"];
-        //NSData *myData = [NSData dataWithContentsOfFile:path];
-        //[picker addAttachmentData:myData mimeType:@"image/jpeg" fileName:@"photo name"];
-        
-        
-        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc]init];
-        mc.mailComposeDelegate = self;
-        [mc setSubject:emailTitle];
-        [mc setMessageBody:messageBody isHTML:NO];
-        [mc setToRecipients:toRecipents];
-        
-        UIImage *myImage = self.imageSelector.image;
-        NSData *myImageData = UIImagePNGRepresentation(myImage);
-        
-        [mc addAttachmentData:myImageData mimeType:@"image/jpeg" fileName:@"photo name"];
-        
-        [self presentViewController:mc animated:YES completion:NULL];
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            
+            //Email subject
+            NSString *emailTitle = self.txtTitle.text;
+            
+            //Email content
+            NSString *messageBody = self.txtStory.text;
+            
+            //to address
+            NSArray *toRecipents = [NSArray arrayWithObject:self.txtEmail.text];
+            
+            
+            // Attach an image to the email
+            //NSString *path = [[NSBundle mainBundle] pathForResource:@"project existing photo" ofType:@"jpg"];
+            //NSData *myData = [NSData dataWithContentsOfFile:path];
+            //[picker addAttachmentData:myData mimeType:@"image/jpeg" fileName:@"photo name"];
+            
+            
+            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc]init];
+            mc.mailComposeDelegate = self;
+            [mc setSubject:emailTitle];
+            [mc setMessageBody:messageBody isHTML:NO];
+            [mc setToRecipients:toRecipents];
+            
+            UIImage *myImage = self.imageSelector.image;
+            NSData *myImageData = UIImagePNGRepresentation(myImage);
+            
+            [mc addAttachmentData:myImageData mimeType:@"image/jpeg" fileName:@"photo name"];
+            
+            [self presentViewController:mc animated:YES completion:NULL];
+
+            
+        }
+        else {
+            
+            [self displayAlert:@"Account not logged in"];
+        }
     }
 
 }

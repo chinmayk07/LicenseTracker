@@ -10,8 +10,6 @@
 
 @interface RSSDetails : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
-
 @property (strong,nonatomic) NSArray *DetailModal;
 
 @property (copy,nonatomic) NSString *url;
@@ -19,6 +17,12 @@
 @property NSInteger selectedLink;
 
 @property NSInteger lastlink;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *articleTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *articleImage;
+@property (weak, nonatomic) IBOutlet UILabel *articleDate;
+@property (weak, nonatomic) IBOutlet UITextView *articleDescription;
 
 
 - (IBAction)nextButton:(id)sender;
