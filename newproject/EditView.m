@@ -143,15 +143,22 @@
     self.editDate.text = [NSString stringWithFormat:@""];
     [self.tabBarController setSelectedIndex:1];
     
-    EditView *ev = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenView"];
+    //EditView *ev = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenView"];
     
-    [self presentViewController:ev animated:YES completion:nil];
+    //[self presentViewController:ev animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 -(void) displayAlert: (NSString *) msg
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"ALERT" message:msg preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+    UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    }];
     
     [alert addAction:defaultaction];
     

@@ -11,7 +11,7 @@
 @interface PaymentGraph ()
 {
     NSString *lastlogentrydata;
-    NSString *firstDate,*lastDate,*resultString;
+    NSString *firstDate,*lastDate,*resultString,*firstdayofcurrentmonth, *lastdayofcurrentmonth;
     NSArray *graphValues,*graphDates;
     
 }
@@ -47,6 +47,36 @@
     [self displayWeekChart];
     
     self.paymentGraph.enableTouchReport = YES;
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc]init];
+    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comp = [gregorian components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay ) fromDate:[NSDate date]];
+    
+    //TO GET PREVIOUS MONTH LAST DAY
+    [comp setMonth:[comp month]];
+    [comp setDay:1];
+    NSDate *tDateMonth = [gregorian dateFromComponents:comp];
+    NSLog(@"LAST DAY OF PREVIOUS MONTH ;  %@", tDateMonth);
+    
+    //TO GET PREVIOUS MONTH FIRST DAY
+    [comp setMonth:[comp month]-1];
+    [comp setDay:2];
+    NSDate *td = [gregorian dateFromComponents:comp];
+    NSLog(@"FIRST DAY OF PREVIOUS MONTH ;  %@", td);
+    
+    [comp setMonth:[comp month]+1];
+    NSDate *tm= [gregorian dateFromComponents:comp];
+    NSLog(@"FISRST DAY OF CURRENT MONTH : %@",tm);
+    firstdayofcurrentmonth = [format stringFromDate:tm];
+    
+    [comp setMonth:[comp month]+1];
+    [comp setDay:1];
+    NSDate *tl = [gregorian dateFromComponents:comp];
+    NSLog(@"LAST DAY OF THE CURRENT MONTH : %@",tl);
+    lastdayofcurrentmonth = [format stringFromDate:tl];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -184,7 +214,7 @@
     NSArray *weekCount = [dataOfWeek allKeys];
     NSArray *weekDate = [dataOfWeek allValues];
     
-    if([weekDate count]>1) {
+    if([weekDate count]>=1) {
         graphValues = [weekCount copy];
         graphDates = [weekDate copy];
         
@@ -203,12 +233,12 @@
 
 - (void) displayMonthlyChart {
     NSDictionary *dataOfMonth = [[NSDictionary alloc]init];
-    dataOfMonth = [self.database monthLogChart:firstDate lastDayOfMonth:lastDate];
+    dataOfMonth = [self.database monthLogChart:firstdayofcurrentmonth lastDayOfMonth:lastdayofcurrentmonth];
     
     NSArray *monthCount = [dataOfMonth allKeys];
     NSArray *monthDate = [dataOfMonth allValues];
     
-    if([monthCount count]>1) {
+    if([monthCount count]>=1) {
         graphValues = [monthCount copy];
         graphDates = [monthDate copy];
         
@@ -228,7 +258,7 @@
     NSArray *yearCount = [dataOfYear allKeys];
     NSArray *yearDate = [dataOfYear allValues];
     
-    if([yearCount count]>1) {
+    if([yearCount count]>=1) {
         graphValues = [yearCount copy];
         graphDates = [yearDate copy];
         
@@ -261,6 +291,9 @@
         
         [self.arrayOfValues addObject:graphDates[i]];
         [self.arrayOfDates addObject:graphValues[i]];
+        
+        NSLog(@"AARRRARARARARARA : %@",self.arrayOfDates);
+        NSLog(@"AARRRARARARARARA1111 : %@",self.arrayOfValues);
     }    
 }
 

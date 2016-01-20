@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5wF-SI-juB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5wF-SI-juB">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -38,7 +38,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="WUs-PS-jIR" kind="show" id="j8k-XC-dto"/>
+                                    <segue destination="WUs-PS-jIR" kind="show" trigger="accessoryAction" id="hoE-Ig-Lzy"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1352,6 +1352,6 @@
         <image name="submit" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FAy-vp-bXW"/>
+        <segue reference="YOX-iU-R7t"/>
     </inferredMetricsTieBreakers>
 </document>

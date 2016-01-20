@@ -11,6 +11,7 @@
 @interface LogView ()
 {
     NSMutableArray *noOfLogEntries;
+    NSInteger lastRowNumber;
 }
 @end
 
@@ -28,7 +29,7 @@ NSString *presentdate;
 - (void)getLogData {
     
     noOfLogEntries = [self.database listLogDetails];
-    int lastRowNumber = [self.tblLogView numberOfRowsInSection:0]-1;
+    lastRowNumber = [self.tblLogView numberOfRowsInSection:0]-1;
     
     if(lastRowNumber <= 0) {
         
@@ -38,7 +39,7 @@ NSString *presentdate;
     else {
         
         NSIndexPath* ip = [NSIndexPath indexPathForRow:lastRowNumber inSection:0];
-        NSLog(@"%d",lastRowNumber);
+        NSLog(@"%ld",(long)lastRowNumber);
         NSLog(@"%@",ip);
         [self.tblLogView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         [self.tblLogView reloadData];
@@ -65,6 +66,7 @@ NSString *presentdate;
         
         //NSLog(@"COUNT OF LOGS : %lu",(unsigned long)[noOfLogEntries count]);
         [self displayAlert:@"There is no Log Data"];
+        [self getLogData];
         
     }
     else {
