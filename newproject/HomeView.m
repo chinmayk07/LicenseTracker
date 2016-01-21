@@ -83,6 +83,7 @@
     NSArray *dictValues = [homeDict allValues];
     if([dictKeys count]==0) {
         [self displayAlert:@"License List is Empty"];
+        [self.tblUpcomingList reloadData];
     }
     else {
         upcomingArrayName = [[NSMutableArray alloc]initWithArray:dictValues];

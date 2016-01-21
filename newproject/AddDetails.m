@@ -129,7 +129,10 @@ NSString *datechanged;
 -(void) displayAlert: (NSString *) msg
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"ALERT" message:msg preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+    UIAlertAction *defaultaction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+        [self.tabBarController setSelectedIndex:1];   
+    }];
     
     [alert addAction:defaultaction];
     

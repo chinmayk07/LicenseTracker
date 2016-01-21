@@ -32,6 +32,13 @@
     
     name = self.selectedName;
     expiryDate = self.selectedDate;
+    NSLog(@"DATE : %@",expiryDate);
+    
+    NSDateFormatter *datef = [[NSDateFormatter alloc]init];
+    [datef setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dateNEW = [datef dateFromString:expiryDate];
+    [self.editDatePicker setDate:dateNEW];
+    
     
     self.editName.text = name;
     self.editDate.text = expiryDate;
